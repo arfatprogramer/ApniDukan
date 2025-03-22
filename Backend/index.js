@@ -34,7 +34,9 @@ app.use("/vender",vender) // this is vender routes for all vender operation rout
 app.get("/",function(req,res) {
   res.json({
     message:"Welcome to ApniDukan, Server is Runnig",
-    developedBy:"Mo Arfat Ansari, Mob: 8010623265"
+    developedBy:"Mo Arfat Ansari, Mob: 8010623265",
+    Client_url: process.env.FRONTEND_URL,
+    Admin_url: process.env.ADMIN_URL,
   })
 })
 
