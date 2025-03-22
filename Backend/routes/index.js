@@ -65,12 +65,11 @@ route.post("/placeOrder",authToken,placeOrderController)
 route.post("/OrderDetails",authToken,viewClientOrderController)
 route.post("/cancelOrder",authToken,cancelOrderController)
 route.post("/sendOtp",authToken,sendOtpController)
-route.post("/payment",authToken,paymentController)
+
 //razer pay payment controlller
 route.post("/razwePayPayment",authToken,razarPayCreateOrder)
 route.post("/razwePayPaymentDone",authToken,razarPayCreateOrderDone)
-//stripe
-route.post("/webhook",webhooks)
+
 
 /**** general routs for any one no Login required**** */
 
