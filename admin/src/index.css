@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+body{
+    color: #fff;
+    background-color: black;
+}
+.navMinWidth{
+    width:80px
+
+}
+.navMaxWidth{
+    width:180px
+
+}
