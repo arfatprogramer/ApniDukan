@@ -2,43 +2,38 @@ import { createContext } from "react";
 import { useDispatch } from "react-redux";
 import { adminDate } from '../common/ApiUrls';
 import { setUserDetails } from "../redux/userDataSlicer";
-import { useNavigate } from "react-router-dom";
 
+export const ContextProvider = createContext();
 
-export const ContextProvider = createContext()
-
-
-const AdminContext=(props)=>{
+const AdminContext = ({ children }) => {
   const dispatch = useDispatch();
-  
 
-const fetchUserData = async () => {
-  const serverResponse = await fetch(adminDate.url, {
-    method: adminDate.method,
-    credentials: 'include',
-    headers: { 'Content-Type': 'application/json', },
-  })
-  const responseDate = await serverResponse.json(); 
-  
-  if (responseDate.success) {
-     dispatch(setUserDetails(responseDate.data))
-  }else{
-    
-  }
-  return responseDate;
-}
+  const fetchUserData = async () => {
+    try {
+      const serverResponse = await fetch(adminDate.url, {
+        method: adminDate.method,
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
+      });
 
-const contextValue={
-  fetchUserData
-}
+      const responseData = await serverResponse.json();
 
-return(
-  <ContextProvider.Provider value={contextValue}>
-  {props.children}
-  </ContextProvider.Provider>
-)
+      if (responseData.success) {
+        dispatch(setUserDetails(responseData.data));
+      }
 
-}
+      return responseData;
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+      return { success: false, message: "Failed to fetch user data" };
+    }
+  };
 
+  return (
+    <ContextProvider.Provider value={{ fetchUserData }}>
+      {children}
+    </ContextProvider.Provider>
+  );
+};
 
 export default AdminContext;
