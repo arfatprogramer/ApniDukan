@@ -1,46 +1,40 @@
-const jwt = require("jsonwebtoken")
+const jwt = require("jsonwebtoken");
+const cookie = require("cookie");
 
-const adminAuthToken=async (req,res,next)=>{
-    try {
-        // console.log(req.cookies.token);
-        const token=req?.cookies?.adminToken
-        
-        
-        if (!token) {
-            return  res.json({
-                message:" Admin Not Login",
-                error:true,
-                success:false
-            })
-        }
+const adminAuthToken = async (req, res, next) => {
+  try {
+    // Parse cookies from headers (since Vercel doesn't support req.cookies directly)
+    const cookies = cookie.parse(req.headers.cookie || "");
+    const token = cookies.adminToken;
 
-        jwt.verify(token,process.env.ADMIN_TOKEN_SECRET_KEY,(err,decode)=>{
-
-           if (decode) {
-           
-            req.id=decode._id
-            
-           }
-           if (err) {
-            console.log(err);
-            console.log("error");
-            
-            
-           }
-        })
-        
-
-        next()      
-        
-    } catch (err) {
-        res.json({
-            message:err.message || err,
-            error:true,
-            success:false
-        })
+    if (!token) {
+      return res.status(401).json({
+        message: "Admin Not Logged In",
+        error: true,
+        success: false,
+      });
     }
-    
 
-}
+    // Verify token
+    jwt.verify(token, process.env.ADMIN_TOKEN_SECRET_KEY, (err, decoded) => {
+      if (err) {
+        return res.status(403).json({
+          message: "Invalid or Expired Token",
+          error: true,
+          success: false,
+        });
+      }
 
-module.exports=adminAuthToken
+      req.id = decoded._id; // Attach admin ID to request object
+      next(); 
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: err.message || "Internal server error",
+      error: true,
+      success: false,
+    });
+  }
+};
+
+module.exports= adminAuthToken; 
