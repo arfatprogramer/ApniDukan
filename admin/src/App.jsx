@@ -12,16 +12,19 @@ function App() {
   const { fetchUserData } = useContext(ContextProvider);
   const navigate = useNavigate();
   const userData = useSelector((state) => state?.user?.user);
+  const  token = useSelector((state) => state?.token?.token);
   
   useEffect(() => {
     fetchUserData(); // Fetch user data once when the app loads
   }, [fetchUserData]);
 
   useEffect(() => {
-    if (!userData) {
+    if (!token) {
       navigate("/login");
+      console.log(token);
+      
     }
-  }, [userData, navigate]);
+  }, [token,navigate]);
 
   return (
     <>

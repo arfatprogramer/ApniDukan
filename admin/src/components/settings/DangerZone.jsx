@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setUserDetails } from "../../redux/userDataSlicer";
+import { setTokenDetails } from "../../redux/tokenSlicer";
 
 const DangerZone = () => {
 	const navigate=useNavigate()
@@ -19,8 +20,12 @@ const DangerZone = () => {
 		const responseDate = await serverResponse.json()
 		if (responseDate.success) {
 		  toast.success(responseDate.message)
-		  navigate('/login')
+		  
 		  dispatch(setUserDetails(null))
+		  dispatch(setTokenDetails(null))
+		  setTimeout(() => {
+			navigate('/login')
+		  }, 3000);
 		}
 		if (responseDate.error) {
 		  toast.error(responseDate.message)

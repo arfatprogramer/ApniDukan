@@ -13,6 +13,7 @@ import { toast } from 'react-toastify';
 import { setUserDetails } from "../redux/userDataSlicer";
 import { GiHandTruck } from "react-icons/gi";
 import { setNavBarDisplay } from "../redux/navBarWithSlicer";
+import { setTokenDetails } from "../redux/tokenSlicer";
 
 const Header = () => {
   const navigate=useNavigate()
@@ -32,7 +33,10 @@ const Header = () => {
     if (responseDate.success) {
       toast.success(responseDate.message)
       dispatch(setUserDetails(null))
-      navigate('/login')
+      dispatch(setTokenDetails(null))
+      setTimeout(() => {
+        navigate('/login')
+      }, 3000);
     }
     if (responseDate.error) {
       toast.error(responseDate.message)

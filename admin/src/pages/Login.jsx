@@ -5,20 +5,23 @@ import { Link, useNavigate } from "react-router-dom";
 import { login } from "../common/ApiUrls";
 import { toast, ToastContainer } from "react-toastify";
 import { ContextProvider } from "../context/index";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setTokenDetails } from "../redux/tokenSlicer";
 
 const Login = () => {
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
+  const dispatch=useDispatch()
   const userData = useSelector((state) => state?.user?.user);
   const { fetchUserData } = useContext(ContextProvider);
+  const  token = useSelector((state) => state?.token?.token);
 
   // Redirect if already logged in
   useEffect(() => {
-    if (userData) {
+    if (token) {
       navigate("/");
     }
-  }, [userData, navigate]);
+  }, [token, navigate]);
 
   const handleSubmit = useCallback(async (e) => {
     e.preventDefault();
@@ -38,7 +41,8 @@ const Login = () => {
       serverResponse = await serverResponse.json();
 
       if (serverResponse.success) {
-        toast.success(serverResponse.message);
+        toast.success(serverResponse.message);  
+        dispatch(setTokenDetails(serverResponse.token))
         setTimeout(async () => {
           await fetchUserData();
           navigate("/");
