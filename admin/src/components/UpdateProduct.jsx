@@ -12,13 +12,14 @@ import { updateProductBackend } from '../common/ApiUrls';
 import productCategory from '../helper/productCategory'
 import uploadProductImage from '../helper/uploadProductImage';
 import color from '../helper/color';
+import { useSelector } from 'react-redux';
 
 
 
 const UpdateProduct = ({ onClose,allProductData,updateProduct }) => {
 
     const [uploadProduct, setUploadProduct] = useState(updateProduct)
-
+    const  token = useSelector((state) => state?.token?.token);
     const [uploadImageName, setUploadImageName] = useState()
 
     const handelChange = (e) => {
@@ -57,13 +58,12 @@ const UpdateProduct = ({ onClose,allProductData,updateProduct }) => {
     }
     const handelOnSubmit = async (e) => {
         e.preventDefault()
-        console.log(uploadProduct);
-
+       
         const serverResponse = await fetch(updateProductBackend.url, {
             method: "put",
             credentials: 'include',
             headers: { "content-type": "application/json" },
-            body:JSON.stringify(uploadProduct)
+            body:JSON.stringify({uploadProduct, userToken:token})
         })
 
         const serverResponseData = await serverResponse.json()

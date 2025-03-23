@@ -1,10 +1,12 @@
 
 import React from 'react'
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { toast } from "react-toastify";
 
 const DeleteConfirmBox = ({ title, onClose, text, deleteData,reloadData }) => {
     const [disable,setDisable]=useState(false)
+    const  token = useSelector((state) => state?.token?.token);
 
 const handelOnSubmit=async(e)=>{
     e.preventDefault()
@@ -13,8 +15,9 @@ const handelOnSubmit=async(e)=>{
         method:deleteData.url.method,
         credentials:"include",
         headers:{"Content-Type": "application/json"},
-        body:JSON.stringify({_id:deleteData._id})
+        body:JSON.stringify({_id:deleteData._id,userToken:token})
     })
+   
     const res=await req.json()
     if (res.success) {
         toast.success(res.message)

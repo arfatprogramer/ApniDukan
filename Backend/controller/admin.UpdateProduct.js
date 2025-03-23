@@ -5,12 +5,9 @@ const productsModel =require("../models/productsModel");
 
 const adminUpdateProductController=async (req,res)=>{
     try {
-const  { productName, brandName, productPrice, selling, Description, productImage, productCategory}=req.body;
-        const productData=req.body
-        console.log(req.id);
+        const  { productName, brandName, productPrice, selling, Description, productImage, productCategory}=req.body.uploadProduct;
         
        
-        
 
         if (!productName) {
             throw new Error("Product name is required");  
@@ -39,7 +36,7 @@ const  { productName, brandName, productPrice, selling, Description, productImag
         }
         
         const payload={
-            ...req.body,
+            ...req.body.uploadProduct,
         }
         const id=payload._id
         delete payload._id

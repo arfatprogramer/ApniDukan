@@ -7,13 +7,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { IoCloseSharp } from "react-icons/io5";
 import { updateUser } from '../common/ApiUrls';
+import { useSelector } from "react-redux";
 
 
 const UserUpdate = ({ onClose, state,getAllUsersData }) => {
 
     const [updateUserData, setUpdateUserData] = useState(state)
-console.log("statle",state);
-console.log("update",updateUserData);
+    const  token = useSelector((state) => state?.token?.token);
 
     const handelChange = (e) => {
         setUpdateUserData({
@@ -29,7 +29,8 @@ console.log("update",updateUserData);
             method: updateUser.method,
             credentials: 'include',
             headers: { "content-type": "application/json" },
-            body: JSON.stringify(updateUserData)
+            body:JSON.stringify({userToken:token,updateUserData:updateUserData})
+            
         })
 
         const serverResponseData = await serverResponse.json()

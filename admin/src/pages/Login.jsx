@@ -46,7 +46,7 @@ const Login = () => {
         setTimeout(async () => {
           await fetchUserData();
           navigate("/");
-        }, 2000);
+        }, 3000);
       } else {
         toast.error(serverResponse.message);
       }

@@ -16,13 +16,11 @@ function App() {
   
   useEffect(() => {
     fetchUserData(); // Fetch user data once when the app loads
-  }, [fetchUserData]);
+  }, []);
 
   useEffect(() => {
     if (!token) {
       navigate("/login");
-      console.log(token);
-      
     }
   }, [token,navigate]);
 

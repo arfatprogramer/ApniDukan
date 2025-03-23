@@ -3,7 +3,9 @@ const userModel = require("../models/userModel");
 const adminUpdateUserController = async (req, res) => {
     try {
 
-        const userData = req.body 
+        const userData = req.body.updateUserData 
+        console.log(userData);
+        
         const _id=userData._id;
         if (!userData) {
             throw new Error("Please Provide Data");

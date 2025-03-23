@@ -1,5 +1,5 @@
 import { createContext } from "react"; 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { adminDate } from '../common/ApiUrls';
 import { setUserDetails } from "../redux/userDataSlicer";
 
@@ -7,6 +7,7 @@ export const ContextProvider = createContext();
 
 const AdminContext = ({ children }) => {
   const dispatch = useDispatch();
+  const  token = useSelector((state) => state?.token?.token);
 
   const fetchUserData = async () => {
     try {
@@ -14,6 +15,8 @@ const AdminContext = ({ children }) => {
         method: adminDate.method,
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
+        body:JSON.stringify({userToken:token}),
+        
       });
 
       const responseData = await serverResponse.json();

@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 import StatCard from "../components/common/StatCard";
 import UsersTable from "../components/users/UsersTable";
 import Title from '../components/Title';
+import { useSelector } from 'react-redux';
 
 
 
@@ -17,7 +18,9 @@ const Users = () => {
     const [openDeleteBox, setOpenDeleteBox] = useState(false)
     const [userUpdateData, setUserUpdateData] = useState({})
     const [deleteData, setDeleteData] = useState({})
-
+    const  token = useSelector((state) => state?.token?.token);
+    console.log(token);
+    
     const [userStats, setUserStats] = useState({
         totalUsers: 0,
         newUsersToday: 243,
@@ -30,14 +33,16 @@ const Users = () => {
         const serverResponse = await fetch(getAllUsers.url, {
             method: getAllUsers.method,
             credentials: 'include',
-            headers: { "content-tye": "application/json" }
+            headers: { 'Content-Type': 'application/json' },
+            body:JSON.stringify({userToken:token}),
+            
         })
         const serverResponseData = await serverResponse.json()
         if (serverResponseData.success) {
             setUsersAllData(serverResponseData.data)
 
         } else {
-            toast.error("error")
+            toast.error(serverResponseData.message)
         }
 
     }

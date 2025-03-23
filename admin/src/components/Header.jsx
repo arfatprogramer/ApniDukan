@@ -21,13 +21,14 @@ const Header = () => {
   const navbarWidth = useSelector(state=>state.navbarWidth.value.width)
    const navbarHideAndShow =useSelector(state=>state.navbarWidth.value.display)
    const userData =useSelector(state=>state?.user?.user) 
-
+   const  token = useSelector((state) => state?.token?.token);
  
    const handelLogout = async () => {
     const serverResponse = await fetch(logOut.url, {
       method: logOut.method,
       credentials: 'include',
-      headers: { "Content-Type": "application/json" }
+      headers: { "Content-Type": "application/json" },
+      body:JSON.stringify({userToken:token})
     })
     const responseDate = await serverResponse.json()
     if (responseDate.success) {

@@ -3,12 +3,13 @@ const cookie = require("cookie");
 
 const adminAuthToken = async (req, res, next) => {
   try {
-    // Parse cookies from headers (since Vercel doesn't support req.cookies directly)
-    const cookies = cookie.parse(req.headers.cookie || "");
-    const token = cookies.adminToken;
+    
+    const token = req.body.userToken;
+    
+    
 
     if (!token) {
-      return res.status(401).json({
+      return res.status(200).json({
         message: "Admin Not Logged In",
         error: true,
         success: false,
@@ -18,7 +19,7 @@ const adminAuthToken = async (req, res, next) => {
     // Verify token
     jwt.verify(token, process.env.ADMIN_TOKEN_SECRET_KEY, (err, decoded) => {
       if (err) {
-        return res.status(403).json({
+        return res.status(200).json({
           message: "Invalid or Expired Token",
           error: true,
           success: false,
@@ -29,7 +30,7 @@ const adminAuthToken = async (req, res, next) => {
       next(); 
     });
   } catch (err) {
-    res.status(500).json({
+    res.status(200).json({
       message: err.message || "Internal server error",
       error: true,
       success: false,

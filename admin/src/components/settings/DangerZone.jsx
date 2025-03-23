@@ -3,19 +3,21 @@ import { Trash2 } from "lucide-react";
 import { logOut } from "../../common/ApiUrls";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setUserDetails } from "../../redux/userDataSlicer";
 import { setTokenDetails } from "../../redux/tokenSlicer";
 
 const DangerZone = () => {
 	const navigate=useNavigate()
 	const dispatch=useDispatch()
+	const  token = useSelector((state) => state?.token?.token);
 
 	const handelLogout = async () => {
 		const serverResponse = await fetch(logOut.url, {
 		  method: logOut.method,
 		  credentials: 'include',
-		  headers: { "Content-Type": "application/json" }
+		  headers: { "Content-Type": "application/json" },
+		  body:JSON.stringify({userToken:token})
 		})
 		const responseDate = await serverResponse.json()
 		if (responseDate.success) {

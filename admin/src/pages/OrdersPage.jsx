@@ -9,6 +9,7 @@ import { cancleOrders, OrderDetails, viewCancelSingleProduct, viewSingleProduct 
 import { useEffect, useState } from "react";
 import displayCurrency from "../helper/displayCurrency";
 import ViewOrderDetail from "../components/ViewOrderDetail";
+import { useSelector } from "react-redux";
 
 
 
@@ -19,12 +20,14 @@ const OrdersPage = () => {
 	const [orderStats, setOrderStats] = useState({})
 	const [openviewOrder,setOpenviewOrder]=useState(false)
 	const [viewOrderData,setViewOrderData]=useState({})
+	const  token = useSelector((state) => state?.token?.token);
 
 	const fetchOrderDetails = async () => {
 		const ordersRequest = await fetch(OrderDetails.url, {
 			method: OrderDetails.method,
-			headers: { "content-Type": "application/json" },
-			credentials: "include"
+			credentials: "include",
+			headers: { 'Content-Type': 'application/json' },
+			body:JSON.stringify({userToken:token}),
 		})
 		const orders = await ordersRequest.json()
 		if (orders.success) {
