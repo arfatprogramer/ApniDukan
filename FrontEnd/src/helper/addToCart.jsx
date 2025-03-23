@@ -1,14 +1,15 @@
 import { toast } from 'react-toastify'
 import { Cart } from '../common/apiData';
 
-const addToCart = async (e, _id) => {
+
+const addToCart = async (e, _id,token) => {
     e.preventDefault()
 
     const response = await fetch(Cart.url, {
         method: Cart.method,
         credentials: 'include',
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ productId: _id })
+        body: JSON.stringify({ productId: _id,token })
     });
 
     const data = await response.json()

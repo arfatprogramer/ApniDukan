@@ -6,16 +6,18 @@ import { ToastContainer } from 'react-toastify';  //for alerts
 import 'react-toastify/dist/ReactToastify.css';  //for alerts
 import './App.css'
 import { ContextProvider } from './context/index.jsx';
+import { useSelector } from 'react-redux';
+
 
 
 const App = () => {
   const { fetchUserData,fetchCartData,fetchAddress } = useContext(ContextProvider)
-
+  const  token = useSelector((state) => state?.token?.token);
   useEffect(() => {
     fetchUserData();
     fetchCartData();
     fetchAddress();
-  }, [])
+  }, [token])
 
   return (
     <>

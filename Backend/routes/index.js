@@ -38,7 +38,7 @@ route.post("/signup",userSignUpController)
 route.post("/login",userSigninController)
 
 // to get user is Details
-route.get("/userDetail",authToken,userDetailController)
+route.post("/userDetail",authToken,userDetailController)
 
 //Update User Details
 route.post("/userDataUpdate",authToken,userDataUpdateController)
@@ -52,8 +52,8 @@ route.post("/resetPassword",userResetPasswordController)
 /****  product car route with user login  ***/
 
 route.post("/cartItems",authToken,productCartController)
-route.get("/cartItemsCount",authToken,userCountCartProductController)
-route.get("/cartItems",authToken,cartItemsController)
+route.post("/cartItemsCount",authToken,userCountCartProductController)
+route.post("/cartItemsController",authToken,cartItemsController)
 route.post("/cartItemQuantity",authToken,cartItemQuantityController)
 
 /****  for Order Related Route for Users   **/
@@ -81,7 +81,7 @@ route.post("/viewSingleProduct",viewSingleProduct)
 
 // address route
 route.post("/address",authToken,addAddressController)
-route.get("/getAddress",authToken,getUserAddressController)
+route.post("/getAddress",authToken,getUserAddressController)
 
 //routes for venders
 route.post("/googleSignup",googleSignupController)

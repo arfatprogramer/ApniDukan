@@ -14,7 +14,8 @@ const LoginCart = () => {
   const [showMenu, setShowMenu] = useState(false)
   const context=useContext(ContextProvider)
   const navigate=useNavigate()
-
+  const  cartItemCount = useSelector((state) => state.cart.count);
+ 
   const handelLogout = async () => {
     const serverResponse = await fetch(logout.url, {
       method: logout.method,
@@ -70,7 +71,7 @@ const LoginCart = () => {
       </div>
       <Link to={'/myCart'} className="text-white sm:2xl  sm:px-4 relative cursor-pointer flex items-center justify-center">
         <FaShoppingCart />
-        <div className="bg-red-600 flex items-center justify-center w-4 h-4 rounded-full absolute -top-1 left-2 sm:left-8"><span className='text-sm'>{context?.cartItemCount}</span></div>
+        <div className="bg-red-600 flex items-center justify-center w-4 h-4 rounded-full absolute -top-1 left-2 sm:left-8"><span className='text-sm'>{cartItemCount}</span></div>
       </Link>
       {/* {userData?._id && <div  className="text-white  px-4 max-sm:pr-0  relative flex items-center justify-center cursor-pointer">
         <button className='rounded-full bg-white text-blue-600 text-sm py-1 px-3 sm:py-1 font-bold' >Logout</button>

@@ -4,10 +4,12 @@ import displayCurrency  from "../helper/displayCurrency";
 import { Link } from 'react-router-dom';
 import addToCart from '../helper/addToCart';
 import { ContextProvider } from '../context';
+import { useSelector } from 'react-redux';
 
 const SingleCategoryCart = ({ category, heading }) => {
   const [data, setDate] = useState([])
   const [loading, setLoading] = useState(false)
+  const  token = useSelector((state) => state?.token?.token);
 
   async function fetchData() {
     setLoading(true)
@@ -19,7 +21,7 @@ const SingleCategoryCart = ({ category, heading }) => {
   }
   const { fetchCartData } = useContext(ContextProvider)
   const handelAddToCart=async (e,id)=>{
-     await addToCart(e,id)
+     await addToCart(e,id,token)
      fetchCartData()
   }
 

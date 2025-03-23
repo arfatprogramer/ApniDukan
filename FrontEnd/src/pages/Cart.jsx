@@ -30,6 +30,7 @@ const Cart = () => {
 
   const [newAddress, setNewAddress] = useState(false)
   const [openChangeAddress, setOpenChangeAddress] = useState(false)
+  const  token = useSelector((state) => state?.token?.token);
 
   // import context
   const { fetchCartData } = useContext(ContextProvider)
@@ -39,7 +40,8 @@ const Cart = () => {
     const response = await fetch(cartItem.url, {
       method: cartItem.method,
       credentials: 'include',
-      headers: { "content-type": "application/json" }
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({token}),
     })
 
     const data = await response.json()

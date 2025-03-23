@@ -17,7 +17,7 @@ export const login = {
 }
 export const userDate = {
     url:`${host}/api/userDetail`,
-    method:"GET"
+    method:"post"
 }
 export const userUpdate = {
     url:`${host}/api/userDataUpdate`,
@@ -58,12 +58,12 @@ export const Cart = {
 
 export const cartCount={
     url:`${host}/api/cartItemsCount`,
-    method:"GET"
+    method:"post"
     
 }
 export const cartItem={
-     url:`${host}/api/cartItems`,
-    method:"GET"
+     url:`${host}/api/cartItemsController`,
+    method:"post"
 }
 export const placeOrder={
     url:`${host}/api/placeOrder`,
@@ -132,7 +132,7 @@ export const addAddress={
 
 export const getAddress={
     url:`${host}/api/getAddress`,
-    method:"get"
+    method:"post"
 }
 
 export const updateAddress={

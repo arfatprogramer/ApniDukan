@@ -5,10 +5,13 @@ import { login } from '../common/apiData';
 import { toast } from 'react-toastify';
 import {ContextProvider} from "../context/index"; // Updated import for the context
 import userAnimato from '../assets/signin.gif';
+import { useDispatch } from 'react-redux';
+import { setTokenDetails } from "../redux/tokenSlicer";
 
 const Login = () => {
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
+  const dispatch=useDispatch()
   
   const {fetchUserData, fetchCartData, fetchAddress } = useContext(ContextProvider); // Corrected to use Context
 
@@ -30,8 +33,8 @@ const Login = () => {
       serverResponse = await serverResponse.json();
       if (serverResponse.success) {
         toast.success(serverResponse.message);
+        dispatch(setTokenDetails(serverResponse.token))
           setTimeout(() => {
-            // Fetch user-related data
            fetchUserData();  // Get user data
            fetchCartData();  // Get the cart item count
            fetchAddress();   // Get user address

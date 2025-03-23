@@ -6,6 +6,8 @@ import confirmProduct  from './confirmProducts'
 import conformAmount from './finalAmount'
 import customerOrderData from "./customerOrderData";
 import buyProductSlicer from "./buyProductSlicer";
+import  tokenSlicer  from './tokenSlicer'
+import  cartItemCount from './cartItemCount'
 
 
 export default configureStore({
@@ -17,5 +19,7 @@ export default configureStore({
     conformAmount:conformAmount,
     MyOrder:customerOrderData,
     buyProduct:buyProductSlicer,
+    token:tokenSlicer,
+    cart:cartItemCount
   }
 })

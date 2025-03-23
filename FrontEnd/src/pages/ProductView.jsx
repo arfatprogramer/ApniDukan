@@ -10,7 +10,7 @@ import ProductCart from '../components/ProductCart';
 import scrollTop from '../helper/scrollerTop';
 import addToCart from '../helper/addToCart';
 import { ContextProvider } from '../context';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { buyProduct } from '../redux/buyProductSlicer';
 import { setConfirmProduct } from '../redux/confirmProducts';
 
@@ -23,6 +23,7 @@ const ProductView = () => {
     const navigate=useNavigate()
     const params = useParams()
     const dispatch=useDispatch()
+    const  token = useSelector((state) => state?.token?.token);
     
 
     const fetchGetProductById = async () => {
@@ -57,7 +58,7 @@ const ProductView = () => {
     // handel add to cart
     const { fetchCartData } = useContext(ContextProvider)
     const handelAddToCart=async(e,id)=>{
-        await addToCart(e,id)
+        await addToCart(e,id,token)
         fetchCartData()
     }
 
