@@ -28,7 +28,7 @@ const ProductsTable = ({allProducts,setOpenUpdate,setUpdateProduct, setOpenDelet
 			animate={{ opacity: 1, y: 0 }}
 			transition={{ delay: 0.2 }}
 		>
-			<div className='flex justify-between items-center mb-6'>
+			<div className='flex justify-between items-center mb-6 max-sm:flex-col max-sm:gap-3'>
 				<h2 className='text-xl font-semibold text-gray-100'>Product List</h2>
 				<div className='relative'>
 					<input

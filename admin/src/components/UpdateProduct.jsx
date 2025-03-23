@@ -21,6 +21,7 @@ const UpdateProduct = ({ onClose,allProductData,updateProduct }) => {
     const [uploadProduct, setUploadProduct] = useState(updateProduct)
     const  token = useSelector((state) => state?.token?.token);
     const [uploadImageName, setUploadImageName] = useState()
+   
 
     const handelChange = (e) => {
         setUploadProduct({

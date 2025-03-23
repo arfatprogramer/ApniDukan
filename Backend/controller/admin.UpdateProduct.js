@@ -1,6 +1,5 @@
 
 const productModel = require("../models/productsModel");
-const productsModel =require("../models/productsModel");
 
 
 const adminUpdateProductController=async (req,res)=>{

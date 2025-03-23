@@ -11,6 +11,7 @@ import { ContextProvider } from '../../context';
 const UpdateAdminProfile = ({ OnClose }) => {
     const { fetchUserData } = useContext(ContextProvider)
     const userData =useSelector(state=>state?.user?.user)
+    const  token = useSelector((state) => state?.token?.token);
     //for password filed
     const [Data, setData] = useState(userData)
     const [uploadProfile, setUploadProfile] = useState(Data?.profile); 
@@ -29,7 +30,7 @@ const UpdateAdminProfile = ({ OnClose }) => {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(formdata),
+            body: JSON.stringify({formdata,userToken:token}),
         })
         serverResponse = await serverResponse.json()
         if (serverResponse.success) {

@@ -21,7 +21,7 @@ const Messages = () => {
   return (
     <>
     <Title title='Messages' />
-    <div className='w-full p-4 flex gap-4 flex-wrap'>
+    <div className='w-full p-4 flex gap-4 flex-wrap max-sm:justify-center'>
 
    
     {

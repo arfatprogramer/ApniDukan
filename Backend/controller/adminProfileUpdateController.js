@@ -4,10 +4,8 @@ const adminModel = require("../models/adminModel");
 const adminProfileUpdateController = async (req, res) => {
     try {
 
-        const userData = req.body
+        const userData = req.body.formdata
         const _id=req.id;
-       
-        
 
         if (!userData) {
             throw new Error("Please Provide Data");
