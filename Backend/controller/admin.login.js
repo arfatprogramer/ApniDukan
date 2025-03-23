@@ -59,8 +59,7 @@ const adminLoginController = async (req, res) => {
       maxAge: 8 * 60 * 60, // 8 hours in seconds
     });
 
-    res.setHeader("Set-Cookie", cookieOptions);
-    res.status(200).json({
+    res.setHeader("Set-Cookie", cookieOptions).status(200).json({
       message: "Login successful",
       data: { username: admin.email },
       token, // Send token in response for additional use cases
@@ -76,4 +75,4 @@ const adminLoginController = async (req, res) => {
   }
 };
 
-module.exports= adminLoginController; // Ensure proper export for Vercel
+module.exports = adminLoginController; // Ensure proper export for Vercel
