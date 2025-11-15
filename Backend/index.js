@@ -12,18 +12,25 @@ const whitelist=[process.env.ADMIN_URL,process.env.FRONTEND_URL]
 
 // get it form documentation
 
-const corsOptionsDelegate = function (req, callback) {
+// const corsOptionsDelegate = function (req, callback) {
   
-    var corsOptions;
-    if (whitelist.indexOf(req.header('Origin')) !== -1) {
-      corsOptions = { origin: true, credentials:true } // reflect (enable) the requested origin in the CORS response
-    } else {
-      corsOptions = { origin: false,credentials:true } // disable CORS for this request
-    }
-    callback(null, corsOptions) // callback expects two parameters: error and options
-  }
+//     var corsOptions;
+//     if (whitelist.indexOf(req.header('Origin')) !== -1) {
+//       corsOptions = { origin: true, credentials:true } // reflect (enable) the requested origin in the CORS response
+//     } else {
+//       corsOptions = { origin: false,credentials:true } // disable CORS for this request
+//     }
+//     callback(null, corsOptions) // callback expects two parameters: error and options
+//   }
   
-app.use(cors(corsOptionsDelegate))
+// app.use(cors(corsOptionsDelegate))
+
+app.use(cors({
+  origin: "*",
+  methods: "GET,POST,PUT,DELETE",
+  allowedHeaders: "Content-Type,Authorization",
+}))
+
 app.use(express.json())
 app.use(cookieParser())
 
