@@ -25,11 +25,15 @@ const whitelist=[process.env.ADMIN_URL,process.env.FRONTEND_URL]
   
 // app.use(cors(corsOptionsDelegate))
 
-app.use(cors({
-  origin: "*",
-  methods: "GET,POST,PUT,DELETE",
-  allowedHeaders: "Content-Type,Authorization",
-}))
+// allow any origin but respond with the request origin (works with credentials)
+const corsOptions = {
+  origin: true,        // reflect request origin
+  credentials: true,   // allow cookies with credentials: 'include'
+  optionsSuccessStatus: 204
+};
+
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions)); // enable preflight for all routes
 
 app.use(express.json())
 app.use(cookieParser())
